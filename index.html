@@ -11,15 +11,11 @@ body {
   text-align: center;
   background: linear-gradient(135deg, #ff9a9e, #fad0c4);
   color: #fff;
+  overflow: hidden;
 }
 
-#countdownScreen {
+#start {
   margin-top: 25%;
-}
-
-#mainContent {
-  display: none;
-  padding: 20px;
 }
 
 button {
@@ -32,6 +28,11 @@ button {
   cursor: pointer;
 }
 
+#mainContent {
+  display: none;
+  padding: 20px;
+}
+
 .message {
   font-size: 22px;
   margin: 20px;
@@ -42,6 +43,11 @@ img {
   width: 220px;
   border-radius: 15px;
   margin-top: 15px;
+}
+
+video {
+  margin-top: 15px;
+  border-radius: 15px;
 }
 
 /* Confetti */
@@ -65,15 +71,16 @@ img {
 
 <body>
 
-<!-- Countdown Screen -->
-<div id="countdownScreen">
-  <h1>⏳ Something for you Dibee 😌</h1>
-  <h2 id="timer"></h2>
+<!-- Start Screen -->
+<div id="start">
+  <h1>🎁 Oye Billo… open this 😏</h1>
+  <button onclick="startSurprise()">Open</button>
 </div>
 
 <!-- Main Content -->
 <div id="mainContent">
   <h1>🎉 Happy Birthday Dibee ❤️</h1>
+
   <p id="text" class="message"></p>
 
   <img id="slideshow" src="photo1.jpg">
@@ -88,34 +95,6 @@ img {
 </audio>
 
 <script>
-// 🎯 Set target date (IMPORTANT)
-const targetDate = new Date("April 26, 2026 00:00:00").getTime();
-
-// Countdown
-const timer = document.getElementById("timer");
-
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = targetDate - now;
-
-  if (diff <= 0) {
-    document.getElementById("countdownScreen").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-
-    document.getElementById("music").play();
-    createConfetti();
-    typeEffect();
-    setInterval(slideShow, 2000);
-    return;
-  }
-
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-  timer.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-}, 1000);
-
 // Messages
 const messages = [
   "We met in MBA… just normal classmates at first 😌",
@@ -169,6 +148,19 @@ function createConfetti() {
     conf.style.animationDuration = (Math.random() * 3 + 2) + "s";
     document.body.appendChild(conf);
   }
+}
+
+// Start
+function startSurprise() {
+  document.getElementById("start").style.display = "none";
+  document.getElementById("mainContent").style.display = "block";
+  document.body.style.overflow = "auto";
+
+  document.getElementById("music").play();
+
+  createConfetti();
+  typeEffect();
+  setInterval(slideShow, 2000);
 }
 </script>
 
